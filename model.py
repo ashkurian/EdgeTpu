@@ -19,7 +19,7 @@ import random
 
 print(tf.__version__)
 input_size = 384
-node_size = 10
+node_size = 1000
 # Load MNIST dataset
 mnist = tf.keras.datasets.mnist
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
