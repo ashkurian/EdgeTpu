@@ -94,4 +94,4 @@ with open('1L10Nallweights97.tflite', 'wb') as f:
 from google.colab import files
 files.download('1L10Nallweights97.tflite')
 
-print('`1L64N.tflite` has been downloaded')
+print('`1L10Nallweights97.tflite` has been downloaded')
