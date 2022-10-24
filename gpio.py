@@ -1,3 +1,13 @@
+Example usage:
+```
+python3 serial-classify.py \
+  --model 1L_2500N_allweights97_mnist_model_quant_edgetpu.tflite
+
+  --labels mnist_labels.txt \
+```
+"""
+
+
 from periphery import GPIO
 import time
 
