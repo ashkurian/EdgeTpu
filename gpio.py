@@ -1,7 +1,7 @@
 from periphery import GPIO
 import time
 
-led = GPIO("/dev/gpiochip0", 39, "out")  # pin 40
+led = GPIO("/dev/gpiochip0", 13, "out")  # pin 40
 # button = GPIO("/dev/gpiochip4", 13, "in")  # pin 36
 
 try:
@@ -12,4 +12,4 @@ try:
     time.sleep(2)
 finally:
   led.write(False)
-  led.close(
+  led.close()
