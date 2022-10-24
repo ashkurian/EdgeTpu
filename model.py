@@ -55,7 +55,8 @@ model.compile(optimizer='adam',
 ###setting weights
 w = np.zeros((input_size,node_size),dtype='int8')
 for i in range(input_size):
-    w[i][j] = 97
+  for j in range(node_size):
+      w[i][j] = 97
   
 b = np.zeros((node_size,),dtype='int8')
 for i in range(node_size):
