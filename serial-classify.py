@@ -1,9 +1,9 @@
-# EdgeTpu
-
 """Example using PyCoral to classify a given image using an Edge TPU.
+
 To run this code, you must attach an Edge TPU attached to the host and
 install the Edge TPU runtime (`libedgetpu.so`) and `tflite_runtime`. For
 device setup instructions, see coral.ai/docs/setup.
+
 Example usage:
 ```
 python3 classify-image.py \
@@ -41,17 +41,19 @@ def main():
                       help='Number of times to run inference')
   args = parser.parse_args()
 
-  labels = read_label_file(args.labels) if args.labels else {}
+  labels = read_label_file(args.labels) if args.labels else {}  #reading the label file generated
 
-  interpreter = make_interpreter(*args.model.split('@'))
+  interpreter = make_interpreter(*args.model.split('@'))  # Models obtained from TfLiteConverter is run in Python with Interpreter.
   interpreter.allocate_tensors()
+  ## tflite_model can be saved to a file and loaded later, or directly into the Interpreter. 
+  ##Since TensorFlow Lite pre-plans tensor allocations to optimize inference, the user needs to call allocate_tensors() before any inference.
 
-  _, height, width = interpreter.get_input_details()[0]['shape']
-  size = [height, width]
+  _, height, width = interpreter.get_input_details()[0]['shape'] 
+  size = [height, width] # getting the size of the input 
 
-  trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
-  # UART3, 9600 baud
-  uart3 = Serial("/dev/ttymxc2", 115200)
+  trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37  defining trigger
+  # UART3, 115200 baud
+  uart3 = Serial("/dev/ttymxc2", 115200) # defining uart3 for serial communication
   input_details = interpreter.get_input_details()[0]
 
   print('----INFERENCE TIME----')
@@ -63,13 +65,13 @@ def main():
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    arr = uart3.read(784)
+    arr = uart3.read(784) # reading 784 bytes from inspector in our case
     #print(list(arr))
-    arr = numpy.array(list(arr), dtype='uint8')
-    arr = numpy.reshape(arr, (28,28))
+    arr = numpy.array(list(arr), dtype='uint8')# converting the array element data type to uint8
+    arr = numpy.reshape(arr, (28,28)) # resizing it into a 28*28 array
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     #common.set_input(interpreter, image)
-    interpreter.set_tensor(input_details["index"], arr)
+    interpreter.set_tensor(input_details["index"], arr) # setting tensor value equivalent to allocate tensor function
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
     #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_start))
     #print("Start Signal:", inspector_start)
@@ -78,8 +80,9 @@ def main():
     interpreter.invoke()
     trigger.write(False)
     inference_time = time.perf_counter() - start
-    output_tensor = interpreter.get_tensor(1)[0]
-    uart3.write(output_tensor.tobytes())
+    output_tensor = interpreter.get_tensor(1)[0] #Tensor index of tensor to get. This value can be gotten from the 'index' field in get_output_details.
+    #returns a numpy array
+    uart3.write(output_tensor.tobytes())# writing to the uart3 
     print('%.6fms' % (inference_time * 1000))
     
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
