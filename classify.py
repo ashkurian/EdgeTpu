@@ -54,15 +54,18 @@ def main():
                       help='Number of times to run inference')
   args = parser.parse_args()
 
-  labels = read_label_file(args.labels) if args.labels else {}
+  labels = read_label_file(args.labels) if args.labels else {} #reading the label file generated
 
-  interpreter = make_interpreter(*args.model.split('@'))
-  interpreter.allocate_tensors()
+  interpreter = make_interpreter(*args.model.split('@')) # Models obtained from TfLiteConverter is run in Python with Interpreter.
+
+  interpreter.allocate_tensors()  
+ ## tflite_model can be saved to a file and loaded later, or directly into the Interpreter. 
+##Since TensorFlow Lite pre-plans tensor allocations to optimize inference, the user needs to call allocate_tensors() before any inference.
 
   _, height, width = interpreter.get_input_details()[0]['shape']
-  size = [height, width]
+  size = [height, width] # getting the size of the input 
 
-  trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
+  trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37 defining trigger
 
   print('----INFERENCE TIME----')
   print('Note: The first inference on Edge TPU is slow because it includes',
@@ -72,16 +75,16 @@ def main():
     #input_image_name = "./testSample/img_"+ str(i) + ".jpg"
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
-    arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
-    common.set_input(interpreter, image)
+    arr = numpy.random.randint(0,255,(28,28), dtype='uint8')  ##creating 28 numpy arrays with 28 elements
+    image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS) # picking up an array out of 28 and resizing based on the input size
+    common.set_input(interpreter, image) # setting the selected resized image as the input
 
-    start = time.perf_counter()
-    trigger.write(True)
-    interpreter.invoke()
-    trigger.write(False)
-    inference_time = time.perf_counter() - start
-    print('%.6fms' % (inference_time * 1000))
+    start = time.perf_counter() # starting the time for inference
+    trigger.write(True) # setting trigger
+    interpreter.invoke() # running the inference
+    trigger.write(False) # setting trigger low after the inference is done
+    inference_time = time.perf_counter() - start # eveluating the inference time
+    print('%.6fms' % (inference_time * 1000))  
     
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
 
