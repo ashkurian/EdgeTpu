@@ -77,6 +77,7 @@ def main():
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     arr = numpy.random.randint(0,255,(28,28), dtype='uint8')  ##creating 28 numpy arrays with 28 elements
     image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS) # resizing the array based on the input size
+    print(image)
     common.set_input(interpreter, image) # setting the selected resized image as the input
 
     start = time.perf_counter() # starting the time for inference
