@@ -72,7 +72,9 @@ def main():
     arr = numpy.reshape(arr, (28,28)) # resizing it into a 28*28 array
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     #common.set_input(interpreter, image)
-    interpreter.set_tensor(input_details['index'], arr) # setting tensor value equivalent to allocate tensor function
+    ##interpreter.set_tensor(input_details['index'], arr) # setting tensor value equivalent to allocate tensor function
+    interpreter.set_tensor(1, arr) # setting tensor value equivalent to allocate tensor function
+    
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
     #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_start))
     #print("Start Signal:", inspector_start)
