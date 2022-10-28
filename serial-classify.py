@@ -53,8 +53,8 @@ def main():
 
   trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37  defining trigger
   # UART1, 115200 baud
-  #uart1 = Serial("/dev/ttymxc0", 115200) # defining uart1 for serial communication
-  uart1 = Serial("/dev/ttyUSB0", 115200)
+  uart1 = Serial("/dev/ttymxc0", 115200) # defining uart1 for serial communication
+  #uart1 = Serial("/dev/ttyUSB0", 115200)
   input_details = interpreter.get_input_details()[0]
 
   print('----INFERENCE TIME----')
