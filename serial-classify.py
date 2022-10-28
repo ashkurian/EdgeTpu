@@ -66,7 +66,7 @@ def main():
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
     arr = uart1.read(784) # reading 784 bytes from inspector in our case
-    #print(list(arr))
+    print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')# converting the array element data type to uint8
     arr = numpy.reshape(arr, (28,28)) # resizing it into a 28*28 array
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
