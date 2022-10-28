@@ -16,6 +16,7 @@ import argparse
 import time
 from periphery import GPIO, Serial
 import numpy
+import tensorflow as tf
 
 from PIL import Image
 from pycoral.adapters import classify
