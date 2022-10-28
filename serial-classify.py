@@ -72,7 +72,7 @@ def main():
     arr = numpy.reshape(arr, (28,28)) # resizing it into a 28*28 array
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     #common.set_input(interpreter, image)
-    interpreter.set_tensor(input_details["index"], arr) # setting tensor value equivalent to allocate tensor function
+    interpreter.set_tensor(input_details['index'], arr) # setting tensor value equivalent to allocate tensor function
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
     #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_start))
     #print("Start Signal:", inspector_start)
@@ -81,7 +81,7 @@ def main():
     interpreter.invoke()
     trigger.write(False)
     inference_time = time.perf_counter() - start
-    output_tensor = interpreter.get_tensor(1)[0] #Tensor index of tensor to get. This value can be gotten from the 'index' field in get_output_details.
+    output_tensor = interpreter.get_tensor(1,0)[0] #Tensor index of tensor to get. This value can be gotten from the 'index' field in get_output_details.
     #returns a numpy array
     print(output_tensor.tobytes())
     uart1.write(output_tensor.tobytes())# writing to the uart1 
