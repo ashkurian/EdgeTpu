@@ -52,8 +52,8 @@ def main():
   size = [height, width] # getting the size of the input 
 
   trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37  defining trigger
-  # UART3, 115200 baud
-  uart3 = Serial("/dev/ttymxc2", 115200) # defining uart3 for serial communication
+  # UART1, 115200 baud
+  uart1 = Serial("/dev/ttymxc0", 115200) # defining uart1 for serial communication
   input_details = interpreter.get_input_details()[0]
 
   print('----INFERENCE TIME----')
@@ -65,7 +65,7 @@ def main():
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    arr = uart3.read(784) # reading 784 bytes from inspector in our case
+    arr = uart1.read(784) # reading 784 bytes from inspector in our case
     #print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')# converting the array element data type to uint8
     arr = numpy.reshape(arr, (28,28)) # resizing it into a 28*28 array
@@ -82,7 +82,7 @@ def main():
     inference_time = time.perf_counter() - start
     output_tensor = interpreter.get_tensor(1)[0] #Tensor index of tensor to get. This value can be gotten from the 'index' field in get_output_details.
     #returns a numpy array
-    uart3.write(output_tensor.tobytes())# writing to the uart3 
+    uart1.write(output_tensor.tobytes())# writing to the uart1 
     print('%.6fms' % (inference_time * 1000))
     
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
