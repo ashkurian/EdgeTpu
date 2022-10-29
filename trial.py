@@ -49,7 +49,7 @@ def main():
 
   trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
   # UART3, 9600 baud
-  uart3 = Serial("/dev/ttymxc2", 115200)
+  uart1 = Serial("/dev/ttymxc0", 115200)
   input_details = interpreter.get_input_details()[0]
 
   print('----INFERENCE TIME----')
@@ -61,8 +61,8 @@ def main():
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    arr = uart3.read(784)
-    #print(list(arr))
+    arr = uart1.read(784)
+    print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
     arr = numpy.reshape(arr, (28,28))
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
@@ -77,7 +77,7 @@ def main():
     trigger.write(False)
     inference_time = time.perf_counter() - start
     output_tensor = interpreter.get_tensor(1)[0]
-    uart3.write(output_tensor.tobytes())
+    uart1.write(output_tensor.tobytes())
     print('%.6fms' % (inference_time * 1000))
     
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
