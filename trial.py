@@ -68,7 +68,7 @@ def main():
     arr = numpy.reshape(arr, (28,28))
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*1)
-    interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
+    #interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
     #common.set_input(interpreter, image)
     interpreter.set_tensor(input_details['index'], arr)
     #interpreter.set_tensor(input_details['index'], image)
