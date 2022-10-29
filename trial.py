@@ -84,7 +84,8 @@ def main():
     #output_tensor = interpreter.get_tensor(1)[0]
     output_tensor = interpreter.get_tensor(output_details['index'])[0]
     print(output_tensor[1])
-    uart1.write(output_tensor[1].tobytes())
+    #uart1.write(output_tensor[1].tobytes())
+    uart1.write(output_tensor[1])
     
     print('%.6fms' % (inference_time * 1000))
     
