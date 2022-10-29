@@ -84,7 +84,7 @@ def main():
     #output_tensor = interpreter.get_tensor(1)[0]
     output_tensor = interpreter.get_tensor(output_details['index'])[0]
     print(output_tensor[1])
-    output_tensor[1]=output_tensor[1].to_bytes(1, 'big')
+    output_tensor[1]=output_tensor[1].tobytes()
     print(output_tensor[1])
     
     #print(list(numpy.array(output_tensor[1])).tobytes())
