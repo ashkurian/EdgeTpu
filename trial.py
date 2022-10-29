@@ -51,7 +51,7 @@ def main():
   # UART3, 9600 baud
   uart1 = Serial("/dev/ttymxc0", 115200)
   #input_details = interpreter.get_input_details()[0]
-  input_details = interpreter.get_input_details()
+  input_details = interpreter.get_input_details()[0]
 
   print('----INFERENCE TIME----')
   print('Note: The first inference on Edge TPU is slow because it includes',
