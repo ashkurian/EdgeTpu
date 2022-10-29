@@ -86,7 +86,7 @@ def main():
     print(output_tensor[1])
     #print(output_tensor[1].tobytes())
     
-    print(numpy.array(output_tensor[1]))
+    print(list(numpy.array(output_tensor[1])))
     
     #uart1.write(output_tensor[1].tobytes())
     #uart1.write(output_tensor[1])
