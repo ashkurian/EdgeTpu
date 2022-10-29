@@ -52,6 +52,7 @@ def main():
   uart1 = Serial("/dev/ttymxc0", 115200)
   #input_details = interpreter.get_input_details()[0]
   input_details = interpreter.get_input_details()[0]
+  output_details = interpreter.get_output_details()[0]
 
   print('----INFERENCE TIME----')
   print('Note: The first inference on Edge TPU is slow because it includes',
@@ -80,7 +81,8 @@ def main():
     interpreter.invoke()
     trigger.write(False)
     inference_time = time.perf_counter() - start
-    output_tensor = interpreter.get_tensor(1)[0]
+    #output_tensor = interpreter.get_tensor(1)[0]
+    output_tensor = interpreter.get_tensor(output_details['index'])[0]
     print(output_tensor)
     uart1.write(output_tensor.tobytes())
     
