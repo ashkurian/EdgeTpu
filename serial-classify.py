@@ -72,11 +72,11 @@ def main():
     arr = numpy.array(list(arr), dtype='uint8')# converting the array element data type to uint8
     arr = numpy.reshape(arr, (28,28)) # resizing it into a 28*28 array
     print(arr)
-    #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
-    #common.set_input(interpreter, image)
-    #input_data = tf.constant(1., shape=[1, 1])
-    interpreter.set_tensor(input_details["index"], arr[1],arr) 
-    #interpreter.set_tensor(input_details['index'], input_data) 
+    image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
+    common.set_input(interpreter, image)
+ 
+   # interpreter.set_tensor(input_details["index"], arr[1],arr) 
+
     
     
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
