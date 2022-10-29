@@ -74,7 +74,7 @@ def main():
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     #common.set_input(interpreter, image)
     #input_data = tf.constant(1., shape=[1, 1])
-    interpreter.set_tensor(input_details[0]['index'], arr) 
+    interpreter.set_tensor(input_details["index"], arr) 
     #interpreter.set_tensor(input_details['index'], input_data) 
     
     
