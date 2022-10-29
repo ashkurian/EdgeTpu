@@ -70,7 +70,7 @@ def main():
    
     #common.set_input(interpreter, image)
     #interpreter.set_tensor(input_details['index'], image)
-    self.interpreter.set_tensor(input_details['index'], arr)[0]
+    interpreter.set_tensor(input_details['index'], image)
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
     #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_start))
     #print("Start Signal:", inspector_start)
