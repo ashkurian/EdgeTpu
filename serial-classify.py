@@ -87,11 +87,13 @@ def main():
     interpreter.invoke()
     trigger.write(False)
     inference_time = time.perf_counter() - start
-    #output_tensor = interpreter.get_tensor(1)[0] #Tensor index of tensor to get. This value can be gotten from the 'index' field in get_output_details.
+    output_tensor = interpreter.get_tensor(1)[0] #Tensor index of tensor to get. This value can be gotten from the 'index' field in get_output_details.
     #returns a numpy array
+    uart1.write(output_tensor.tobytes())
     #print(output_tensor.tobytes())
-    out=uart1.write(1)# writing to the uart1 
-    print(out)
+    print(output_tensor)
+
+    
     print('%.6fms' % (inference_time * 1000))
     
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
