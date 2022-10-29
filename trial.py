@@ -50,7 +50,8 @@ def main():
   trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
   # UART3, 9600 baud
   uart1 = Serial("/dev/ttymxc0", 115200)
-  input_details = interpreter.get_input_details()[0]
+  #input_details = interpreter.get_input_details()[0]
+  input_details = interpreter.get_input_details()
 
   print('----INFERENCE TIME----')
   print('Note: The first inference on Edge TPU is slow because it includes',
