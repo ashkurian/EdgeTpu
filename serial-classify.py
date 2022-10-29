@@ -77,7 +77,7 @@ def main():
  
     #interpreter.set_tensor(input_details["index"], arr) 
 
-    interpreter.set_tensor(0, arr) 
+    interpreter.set_tensor(0, 1,arr) 
 
     
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
