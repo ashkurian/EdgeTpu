@@ -67,8 +67,9 @@ def main():
     arr = numpy.array(list(arr), dtype='uint8')
     arr = numpy.reshape(arr, (28,28))
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
+   
     #common.set_input(interpreter, image)
-    interpreter.set_tensor(0, arr)
+    interpreter.set_tensor(input_details['index'], arr)
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
     #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_start))
     #print("Start Signal:", inspector_start)
