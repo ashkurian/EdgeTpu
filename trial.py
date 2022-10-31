@@ -83,7 +83,7 @@ def main():
     inference_time = time.perf_counter() - start
     #output_tensor = interpreter.get_tensor(1)[0]
     output_tensor = interpreter.get_tensor(output_details['index'])[0]
-    print(output_tensor[1])
+    ##print(output_tensor[1])
     #output_tensor[1]=output_tensor[1].tobytes()
     #print(type(output_tensor[1]))
     
@@ -93,9 +93,9 @@ def main():
     
     ### actual write  ###  uart1.write(output_tensor[1].tobytes())
     var=[0x55]
-    print("value=" + var)
+    print("value=" + str(var))
     re=uart1.write(var)
-    print("return value is" + re)
+    print("return value is" + str(re))
     #uart1.write(output_tensor[1])
     
     ##print('%.6fms' % (inference_time * 1000))
