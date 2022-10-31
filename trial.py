@@ -92,7 +92,7 @@ def main():
     #print(list(numpy.array(output_tensor[1])).tobytes())
     
     ### actual write  ###  uart1.write(output_tensor[1].tobytes())
-    var=[0x55]
+    var=[0x56]
     print("value=" + str(var))
     uart1.write(var)
     #re=uart1.write(var)
