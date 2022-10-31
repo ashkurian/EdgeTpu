@@ -91,7 +91,8 @@ def main():
     
     #print(list(numpy.array(output_tensor[1])).tobytes())
     
-    uart1.write(output_tensor[1].tobytes())
+    ### actual write  ###  uart1.write(output_tensor[1].tobytes())
+    uart1.write(0x10)
     #uart1.write(output_tensor[1])
     
     print('%.6fms' % (inference_time * 1000))
