@@ -94,8 +94,10 @@ def main():
     ### actual write  ###  uart1.write(output_tensor[1].tobytes())
     var=[0x55]
     print("value=" + str(var))
-    re=uart1.write(var)
-    print("return value is" + str(re))
+    uart1.write(var)
+    #re=uart1.write(var)
+    #print("return value is" + str(re))
+    
     #uart1.write(output_tensor[1])
     
     ##print('%.6fms' % (inference_time * 1000))
