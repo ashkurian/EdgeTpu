@@ -103,7 +103,7 @@ def main():
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
 
     #print('RESULTS for image ', 1)
-    for c in classes:
+    #for c in classes:
      ## print('%s: %.6f' % (labels.get(c.id, c.id), c.score))
     #time.sleep(2)
 
