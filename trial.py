@@ -98,13 +98,13 @@ def main():
     print("return value is" + re)
     #uart1.write(output_tensor[1])
     
-    print('%.6fms' % (inference_time * 1000))
+    ##print('%.6fms' % (inference_time * 1000))
     
     classes = classify.get_classes(interpreter, args.top_k, args.threshold)
 
     #print('RESULTS for image ', 1)
     for c in classes:
-      print('%s: %.6f' % (labels.get(c.id, c.id), c.score))
+     ## print('%s: %.6f' % (labels.get(c.id, c.id), c.score))
     #time.sleep(2)
 
 
