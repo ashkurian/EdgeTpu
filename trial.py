@@ -64,7 +64,7 @@ def main():
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
     arr = uart1.read(784)
-    print(list(arr))
+    #print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
     arr = numpy.reshape(arr, (28,28))
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
@@ -85,15 +85,17 @@ def main():
     output_tensor = interpreter.get_tensor(output_details['index'])[0]
     print(output_tensor[1])
     #output_tensor[1]=output_tensor[1].tobytes()
-    print(type(output_tensor[1]))
+    #print(type(output_tensor[1]))
     
-    print(output_tensor[1].tobytes())
+    #print(output_tensor[1].tobytes())
     
     #print(list(numpy.array(output_tensor[1])).tobytes())
     
     ### actual write  ###  uart1.write(output_tensor[1].tobytes())
     var=[0x55]
-    uart1.write(var)
+    print("value=" + var)
+    re=uart1.write(var)
+    print("return value is" + re)
     #uart1.write(output_tensor[1])
     
     print('%.6fms' % (inference_time * 1000))
