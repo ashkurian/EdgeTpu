@@ -66,7 +66,7 @@ def main():
     arr = uart1.read(150528)
     #print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
-    arr = numpy.reshape(arr, (28,28))
+    arr = numpy.reshape(arr, (224,224))
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*3)// 3 channels
     #interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
