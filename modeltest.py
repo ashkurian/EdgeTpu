@@ -63,12 +63,12 @@ def main():
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    arr = uart1.read(784)
+    arr = uart1.read(150528)
     #print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
     arr = numpy.reshape(arr, (28,28))
     #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
-    arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*1)
+    arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*3)// 3 channels
     #interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
     #common.set_input(interpreter, image)
     interpreter.set_tensor(input_details['index'], arr)
