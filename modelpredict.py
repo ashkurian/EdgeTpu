@@ -22,8 +22,10 @@ from pycoral.utils.dataset import read_label_file
 from pycoral.utils.edgetpu import make_interpreter
 
 
-import tensorflow as tf
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--model', type=str, required=True, help='Model to use')
+args = parser.parse_args()
 
 # Load the TFLite model
 #interpreter = tf.lite.Interpreter(model_path="/content/mobilenet_v1_1.0_224_quant_edgetpu.tflite")
@@ -34,7 +36,7 @@ input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 # Prepare the input data
-input_data = np.random.rand(224, 224, 3).astype(np.float32)
+input_data = np.random.rand(224, 224, 3).astype(np.uint8)
 input_data = np.expand_dims(input_data, axis=0)# add a new dimension for batch size
 interpreter.set_tensor(input_details[0]['index'], input_data)
 
