@@ -44,8 +44,9 @@ def main():
   interpreter = make_interpreter(*args.model.split('@'))
   interpreter.allocate_tensors()
 
-  _, height, width = interpreter.get_input_details()[0]['shape']
-  size = [height, width]
+  _, height, width, channel = interpreter.get_input_details()[0]['shape']
+  size = [height, width,channel]
+
 
   trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
   # UART3, 9600 baud
@@ -57,6 +58,7 @@ def main():
   print('----INFERENCE TIME----')
   print('Note: The first inference on Edge TPU is slow because it includes',
         'loading the model into Edge TPU memory.')
+
   #for i in range(1,351):
   while 1:
     #input_image_name = "./testSample/img_"+ str(i) + ".jpg"
@@ -66,15 +68,15 @@ def main():
     arr = uart1.read(150528)
     #print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
-    arr = numpy.reshape(arr, (224,224))
-    #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
-    arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*3)// 3 channels
+    arr = numpy.reshape(arr, (224,224,3))
+   #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
+    arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*3)
     #interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
     #common.set_input(interpreter, image)
     interpreter.set_tensor(input_details['index'], arr)
     #interpreter.set_tensor(input_details['index'], image)
     #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
-    #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_start))
+    #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_sta$
     #print("Start Signal:", inspector_start)
     start = time.perf_counter()
     trigger.write(True)
