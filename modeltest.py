@@ -68,14 +68,14 @@ def main():
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    #arr = uart1.read(150528)#add
-    arr= numpy.random.rand(150528)
+    arr = uart1.read(150528)
+    #arr= numpy.random.rand(150528)
     #remove
-    #print(list(arr))
+    print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
     arr = numpy.reshape(arr, (224,224,3))
     arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*1)
-    # print(arr.shape)
+    #print(arr.shape)
     #interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
     #common.set_input(interpreter, image)
     interpreter.set_tensor(input_details['index'], arr)
