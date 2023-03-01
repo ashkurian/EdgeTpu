@@ -17,6 +17,7 @@ import numpy
 
 from PIL import Image
 from pycoral.adapters import classify
+
 from pycoral.adapters import common
 from pycoral.utils.dataset import read_label_file
 from pycoral.utils.edgetpu import make_interpreter
@@ -48,12 +49,14 @@ def main():
   size = [height, width,channel]
 
 
-  trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
+ trigger = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
   # UART3, 9600 baud
   uart1 = Serial("/dev/ttymxc0", 115200)
   #input_details = interpreter.get_input_details()[0]
   input_details = interpreter.get_input_details()[0]
   output_details = interpreter.get_output_details()[0]
+
+
 
   print('----INFERENCE TIME----')
   print('Note: The first inference on Edge TPU is slow because it includes',
@@ -61,24 +64,23 @@ def main():
 
   #for i in range(1,351):
   while 1:
-    #input_image_name = "./testSample/img_"+ str(i) + ".jpg"
+     #input_image_name = "./testSample/img_"+ str(i) + ".jpg"
     #input_image_name = "./testSample/img_1.jpg"
     #image = Image.open(input_image_name).resize(size, Image.ANTIALIAS)
     #arr = numpy.random.randint(0,255,(28,28), dtype='uint8')
-    arr = uart1.read(150528)
+    #arr = uart1.read(150528)#add
+    arr= numpy.random.rand(150528)
+    #remove
     #print(list(arr))
     arr = numpy.array(list(arr), dtype='uint8')
     arr = numpy.reshape(arr, (224,224,3))
-   #image = Image.fromarray(arr, 'L').resize(size, Image.ANTIALIAS)
     arr = numpy.concatenate([arr[numpy.newaxis, :, :]]*1)
+    # print(arr.shape)
     #interpreter.resize_tensor_input(input_details[0]['index'], (1, 28, 28, 3))
     #common.set_input(interpreter, image)
     interpreter.set_tensor(input_details['index'], arr)
-    #interpreter.set_tensor(input_details['index'], image)
-    #inspector_start = int.from_bytes(uart3.read(1, 1), 'big')
-    #print("read {:d} bytes: _{:s}_".format(len(inspector_start), inspector_sta$
-    #print("Start Signal:", inspector_start)
     start = time.perf_counter()
+
     trigger.write(True)
     interpreter.invoke()
     trigger.write(False)
