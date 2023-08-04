@@ -1,4 +1,5 @@
 "This file is to invoke a inference directly"
+Use "python3 run_inference.py" to run this .py file
 
 import subprocess
 import os
