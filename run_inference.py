@@ -1,3 +1,5 @@
+"This file is to invoke a inference directly"
+
 import subprocess
 import os
 
