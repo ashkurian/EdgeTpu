@@ -1,4 +1,6 @@
 ".py file to run multiple inferences corresponding to each model .tflite file in the folder "EdgeTpu/Automated_tfliteFiles/"
+Use "python3 run_inference_multiple.py" to run this .py file
+
 
 import subprocess
 import sys
